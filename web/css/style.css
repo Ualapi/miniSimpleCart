@@ -1,0 +1,237 @@
+@import url(http://fonts.googleapis.com/css?family=Antic|Laila:400,700);
+/*
+* font-family: 'Laila', serif;
+*/
+
+/*********** Main styles
+*********************************
+*********************************
+*/
+
+.test{background: red}
+
+*{box-sizing: border-box !important; font-family: Arial}
+.main {
+    padding: 2em;
+    color: black;
+}
+
+.container{
+    margin: 0 auto;
+    max-width: 960px;
+}
+
+.container-xs{
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+.box-right{position: relative; float: right}
+.box-left{position: relative; float: left;}
+
+.text-right{text-align: right}
+.text-left{text-align: left}
+.text-center{text-align: center}
+
+
+.padding-vertical-xs{padding: 5px 0px}
+.padding-vertical-md{padding: 10px 0px}
+
+.padding-horizontal-xs{padding: 0px 5px}
+.padding-horizontal-md{padding: 0px 10px}
+.padding-horizontal-lg{padding: 20px 00px}
+
+.padding-right-10{padding-right: 10px;}
+.padding-left-10{ padding-left: 10px}
+
+.background-default{background: #FFFFFF}
+.background-primary{background: #de5b48}
+
+.btn-100{width: 100%}
+.btn-xs{padding: 10px; font-size: 14px}
+.btn-lg{padding: 20px; font-size: 20px}
+
+.margin-auto{margin: 0 auto}
+
+.button-primary {
+    background: #de5b48;
+    color: #FFFFFF;
+    border: 2px solid #de5b48;
+}
+    .button-primary:hover, .button-primary:focus{
+        background: #3680ab;
+        box-sizing: border-box;
+    }
+.button-secondary {
+    background: #de5b48;
+    color: #FFFFFF;
+    border: 2px solid #de5b48;
+}
+    .button-secondary:hover,.button-secondary:focus {
+        background: #FFFFFF;
+        color: #de5b48;
+        border: 2px solid #de5b48;
+        outline: none;
+    }
+
+.button-success {
+    color: #141414;
+    background: #FFFFFF;
+    border: 2px solid #141414;
+}
+.button-success:hover,.button-success:focus {
+    color: #FFFFFF;
+    background: #141414;
+    border: 2px solid #141414;
+    outline: none;
+}
+
+.pure-button{
+    border-radius: 4px;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-weight: normal;
+}
+
+h1{
+    font-size: 46px;
+    line-height: 49px;
+}
+h3{
+    font-size: 19px ;
+    line-height: 24px;
+    margin: 0;
+    color: #de5b48;
+}
+h4, h4 a{
+    font-size: 30px;
+    margin:0;
+    line-height: 34px;
+    text-decoration: none;
+    color: #141414 ;
+    font-family: 'Laila', serif;
+}
+    h4 a:hover{
+        color: #515151 ;
+    }
+
+/*********** box
+*********************************
+*********************************
+*/
+
+.box-object{
+    border:1px solid #D4D4D4;
+    border-radius: 4px;
+}
+.box-object-inside{
+    padding: 20px;
+}
+    .box-object-inside img{
+        width:100% !important;
+        height:100% !important;
+        display:block;
+    }
+
+.features{
+    padding:15px;
+    border-top:1px solid #D4D4D4;
+}
+
+.title{
+    text-align: center;
+}
+    .title h4 a{
+        font-size: 16px;
+        text-decoration: none;
+    }
+        .title h4 a:hover{
+            color: #de5b48;
+        }
+
+.price{
+    font-size: 16px;
+    line-height: 40px;
+    font-weight: bold;
+    color: #515151;
+}
+
+/*********** Main
+*********************************
+*********************************
+*/
+
+.main{
+
+}
+
+/*********** footer
+*********************************
+*********************************
+*/
+
+footer{
+    margin-top: 15px;
+    padding-bottom: 0px !important;
+}
+.pure-menu-horizontal {
+    text-align: center;
+}
+.copy{
+    text-align: center;
+    font-size: 14px;
+    color: #8F8F8F
+}
+    .copy span{
+        display: block;
+        color: #D4D4D4;
+        padding-top: 8px;
+    }
+#social-footer{
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+    #social-footer ul{
+        width:110px;
+        overflow: hidden;
+        margin:0 auto;
+        padding: 0;
+        text-align: center;
+    }
+        #social-footer ul li{
+            float: left;
+            padding: 0;
+            list-style: none;
+            margin:0px 5px;
+        }
+            #social-footer ul li a{
+                padding: 10px;
+                display: block;
+                width: 45px;
+                height: 45px;
+                text-align: center;
+                border-radius: 4px;
+                line-height: 28px;
+                color: #FFFFFF;
+                font-size: 18px;
+                background: red;
+            }
+
+            #social-footer ul li a.facebook{background: #49659F}
+            #social-footer ul li a.facebook:hover{background: #2F477A}
+
+            #social-footer ul li a.twitter{background: #55ACEE}
+            #social-footer ul li a.twitter:hover{background: #3B94D9}
+
+            #social-footer ul li a.github{background: #333333}
+            #social-footer ul li a.github:hover{background: #4078c0}
+
+            #social-footer ul li a.youtube{background: #E02927}
+            #social-footer ul li a.youtube:hover{background: #D72424}
+
+/*********** @mediaQuieries
+*********************************
+*********************************
+*/
