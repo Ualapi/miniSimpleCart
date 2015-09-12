@@ -33,9 +33,11 @@
 .text-left{text-align: left}
 .text-center{text-align: center}
 
+.padding-lg{padding: 20px;}
 
 .padding-vertical-xs{padding: 5px 0px}
 .padding-vertical-md{padding: 10px 0px}
+.padding-vertical-lg{padding: 20px 0px}
 
 .padding-horizontal-xs{padding: 0px 5px}
 .padding-horizontal-md{padding: 0px 10px}
@@ -142,6 +144,10 @@ h4, h4 a{
     border-top:1px solid #D4D4D4;
 }
 
+.features-without-border{
+    padding:15px;
+}
+
 .title{
     text-align: center;
 }
@@ -158,6 +164,9 @@ h4, h4 a{
     line-height: 40px;
     font-weight: bold;
     color: #515151;
+}
+.other-feautures{
+    color: #8f8f8f;
 }
 
 /*********** Main

@@ -2,42 +2,48 @@
 
 {% block body %}
 
-    <div class="pure-g padding-horizontal-lg">
+    <div class="title">
+        <h4 class="text-left">
+            {{ product.name }}
+        </h4>
+    </div>
 
-        <div class="pure-u-1 pure-u-md-8-24">
-            <article class="box-xs">
-                <div class="box-object">
-                    <div class="box-object-inside">
-                        <img src="holder.js/300x300">
-                    </div>
-                    <div class="features">
-                        <div class="pure-g">
-                            <div class="pure-u-1">
-                                <div class="title">
-                                    <h4>
-                                        {{ product.name }}
-                                    </h4>
-                                </div>
-                            </div>
+    <article class="pure-g padding-horizontal-lg">
+        <div class="pure-u-1 pure-u-md-14-24">
+            <div class="box-xs">
+
+                <div class="box-object-inside">
+                    <img src="holder.js/300x300">
+                </div>
+                <div class="padding-lg other-feautures">
+                    {{ product.description }}
+                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-10-24">
+            <div class="box-object-inside">
+
+                <div class="price text-center">
+                    {{ product.price }} €
+                </div>
+
+                <a href="" class="pure-button button-secondary btn-100">Add to cart</a>
+
+
+                <div class="padding-vertical-lg other-feautures">
+                    <div class="pure-g">
+
+                        <div class="pure-u-8-24">
+                            <b>Stock:</b>
                         </div>
-                    </div>
-                    <div class="features">
-                        <div class="pure-g">
-                            <div class="pure-u-12-24">
-                                <div class="price">
-                                    {{ product.price }} €
-                                </div>
-                            </div>
-                            <div class="pure-u-12-24">
-                                <div class="text-right">
-                                    <a href="" class="pure-button button-secondary btn-xs">Add to cart</a>
-                                </div>
-                            </div>
+                        <div class="pure-u-16-24">
+                            {{ product.stock }} items
                         </div>
                     </div>
                 </div>
-            </article>
+            </div>
         </div>
-    </div>
+    </article>
 
 {% endblock %}
