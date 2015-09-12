@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <header>
+        <div class="container">
+            <div class="pure-g padding-horizontal-xs">
+                <div class="pure-u-3-5">
+                    <div class="btn-lg">
+                        <h3>MiSimpleCart App Symfony2</h3>
+                    </div>
+                </div>
+
+                <div class="pure-u-2-5 text-right">
+                    <div class="btn-lg">
+                        <a href="" class="pure-button button-success btn-xs">
+                            <i class="fa fa-shopping-cart"></i> <span id="totalShop"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main container">
+
+        {% block body %} {% endblock %}
+
+        <footer class="padding-horizontal-lg">
+            <div class="container-xs">
+                <div id="social-footer">
+                    <ul>
+                        <!-- <li> <a href="#" class="facebook"> <i class="fa fa-facebook"></i> </a> </li> -->
+                        <li> <a href="https://twitter.com/ualapi" class="twitter"> <i class="fa fa-twitter"></i> </a> </li>
+                        <li> <a href="https://github.com/Ualapi" class="github"> <i class="fa fa-github-alt"></i> </a> </li>
+                        <!--<li> <a href="#" class="youtube"> <i class="fa fa-youtube-play"></i> </a> </li> -->
+                    </ul>
+                </div>
+                <p class="copy">MiniSimpleCart App Symfony2  <span><i class="fa fa-bullseye"></i> Ualapi</span></p>
+            </div>
+        </footer>
+
+    </div>
+{% endblock %}

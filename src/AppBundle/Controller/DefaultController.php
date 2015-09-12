@@ -14,7 +14,7 @@ class DefaultController extends Controller
     {
         $products = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll();
 
-        return $this->render('default/index.html.twig', array(
+        return $this->render('app/index.html.twig', array(
             'products' => $products
         ));
     }

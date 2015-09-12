@@ -53,6 +53,9 @@
 
 .margin-auto{margin: 0 auto}
 
+.box-xs{padding: 5px;}
+.box-md{padding: 10px;}
+
 .button-primary {
     background: #de5b48;
     color: #FFFFFF;
