@@ -103,12 +103,16 @@ h1{
     font-size: 46px;
     line-height: 49px;
 }
-h3{
+h3, h3 a{
     font-size: 19px ;
     line-height: 24px;
     margin: 0;
     color: #de5b48;
+    text-decoration: none;
 }
+    h3 a:hover{
+        color: #141414
+    }
 h4, h4 a{
     font-size: 30px;
     margin:0;
