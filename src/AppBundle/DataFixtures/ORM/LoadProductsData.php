@@ -6,7 +6,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Product;
 use Symfony\Component\Yaml\Yaml;
 
-class LoadUserData implements FixtureInterface
+class LoadProductsData implements FixtureInterface
 {
     /**
      * {@inheritDoc}

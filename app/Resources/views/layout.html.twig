@@ -1,4 +1,28 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Mini Simple Cart{% endblock %}</title>
+    <meta name="description" content="{% block description '' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- StyleSheets -->
+    {% block stylesheets %}
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
+        <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+        <!--<![endif]-->
+    {% endblock %}
+
+    <!-- Icons and apple-touch-icon (in directory web)  -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
 
 {% block content %}
     <header>
@@ -41,3 +65,15 @@
 
     </div>
 {% endblock %}
+
+<!-- JavaScripts -->
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="{{ asset('js/my.js') }}"></script>
+    <script src="{{ asset('js/holder.js') }}"></script>
+{% endblock %}
+
+<!-- Google Analytics:  UA-XXXXX-X -> your ID -->
+
+</body>
+</html>
