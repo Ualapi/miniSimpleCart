@@ -9,10 +9,15 @@ class MinicartController extends Controller
 {
     public function indexAction()
     {
+        if (count($this->get('session')->get('cart_products')) > 0) {
+
+        }
+
         return $this->render(
             'AppBundle:app:index.html.twig',
             array(
-                'products' => $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll(),
+                'products' => $products = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll(),
+                'formProducts' => $this->getFormProductsViews($products),
             )
         );
     }
@@ -40,5 +45,18 @@ class MinicartController extends Controller
                 'product' => $product
             )
         );
+    }
+
+    private function getFormProductsViews($products)
+    {
+        foreach ($products  as $key => $product) {
+            $formProductsViews[$key] = $this->createFormBuilder()
+                                       ->setAction('asdf')
+                                       ->add('quantity', 'integer')
+                                       ->add('add', 'submit', array('label' => 'add'))
+                                       ->getForm()
+                                       ->createView();
+        }
+        return $formProductsViews;
     }
 }
