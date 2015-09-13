@@ -10,10 +10,9 @@ class MinicartController extends Controller
     public function indexAction()
     {
         return $this->render(
-            'app/index.html.twig',
+            'AppBundle:app:index.html.twig',
             array(
                 'products' => $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll(),
-                'cart' => $this->get('cart')->getProducts()
             )
         );
     }
