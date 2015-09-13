@@ -36,33 +36,18 @@ class Product
     private $description;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="price", type="float", scale=2)
-     */
-    private $price;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="stock", type="integer")
-     */
-    private $stock;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="status", type="boolean")
-     */
-    private $status;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=125, nullable=true)
      */
     private $image;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="price", type="float", scale=2)
+     */
+    private $price;
 
     /**
      * Get id
