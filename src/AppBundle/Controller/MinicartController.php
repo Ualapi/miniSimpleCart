@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class MinicartController extends Controller
 {
     public function indexAction()
     {
