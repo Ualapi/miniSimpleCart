@@ -1,0 +1,7 @@
+app_index:
+    path:     /
+    defaults: { _controller: AppBundle:Default:index }
+
+app_show_product:
+    path:     /{id}/show-product
+    defaults: { _controller: AppBundle::Default:show }
