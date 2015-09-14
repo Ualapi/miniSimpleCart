@@ -4,16 +4,12 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 
 class MinicartController extends Controller
 {
     public function indexAction()
     {
-        if (count($this->get('session')->get('cart')) > 0) {
-
-        }
-
         return $this->render(
             'AppBundle:app:index.html.twig',
             [
@@ -27,9 +23,9 @@ class MinicartController extends Controller
     {
         $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
 
-        $form = $this->getFormProducts(
-            $product = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findOneBy(['id' => $id])
-        );
+        $product = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findOneBy(['id' => $id]);
+
+        $form = $this->getForm($product);
 
         $form->handleRequest($request);
 
@@ -43,8 +39,15 @@ class MinicartController extends Controller
             ;
         }
 
-        $cart[$product->getId()] = $product;
         $this->get('session')->set('cart', $cart);
+
+        return $this->render(
+            'AppBundle:app:index.html.twig',
+            [
+                'products' => $products = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll(),
+                'formProducts' => $this->getFormProductsViews($this->getFormProducts($products)),
+            ]
+        );
     }
 
     public function checkoutAction()
@@ -71,12 +74,7 @@ class MinicartController extends Controller
     {
         $formProducts = [];
         foreach ($products  as $key => $product) {
-            $formProducts[$key] = $this->createFormBuilder()
-                                            ->setAction($this->generateUrl('app_add_product', ['id' => $product->getId()]))
-                                            ->add('quantity', 'integer')
-                                            ->add('add', 'submit', ['label' => 'add'])
-                                            ->getForm()
-            ;
+            $formProducts[$key] = $this->getForm($product);
         }
         return $formProducts;
     }
@@ -88,5 +86,15 @@ class MinicartController extends Controller
             $formProductsViews[$key] = $form->createView();
         }
         return $formProductsViews;
+    }
+
+    private function getForm($product)
+    {
+        return $this->createFormBuilder()
+                                   ->setAction($this->generateUrl('app_add_product', ['id' => $product->getId()]))
+                                   ->add('quantity', 'integer')
+                                   ->add('add', 'submit', ['label' => 'add'])
+                                   ->getForm()
+        ;
     }
 }
