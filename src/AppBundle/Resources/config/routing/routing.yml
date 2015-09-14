@@ -2,6 +2,10 @@ app_index:
     path:     /
     defaults: { _controller: AppBundle:Minicart:index }
 
+app_add_product:
+    path:     /{id}/add-product
+    defaults: { _controller: AppBundle:Minicart:add }
+
 app_show_product:
     path:     /{id}/show-product
-    defaults: { _controller: AppBundle::Minicart:show }
+    defaults: { _controller: AppBundle:Minicart:show }
