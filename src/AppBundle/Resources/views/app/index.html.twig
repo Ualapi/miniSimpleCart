@@ -20,6 +20,8 @@
                                 </div>
                             </div>
                         </div>
+                        {{ form_start(formProducts[key]) }}
+
                         <div class="features">
                             <div class="pure-g">
                                 <div class="pure-u-12-24">
@@ -29,12 +31,21 @@
                                 </div>
                                 <div class="pure-u-12-24">
                                     <div class="text-right">
-                                        {{ form(formProducts[key]) }}
-                                        <a href="" class="pure-button button-secondary btn-xs">Add to cart</a>
+                                        {{ form_row(formProducts[key].quantity) }}
+                                        {{ form_errors(formProducts[key].quantity) }}
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="features">
+                            <div class="pure-g">
+                                <div class="pure-u-1">
+                                    {{ form_row(formProducts[key].add, {'attr':{'class': 'pure-button button-secondary btn-100'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(formProducts[key]) }}
                     </div>
                 </article>
             </div>

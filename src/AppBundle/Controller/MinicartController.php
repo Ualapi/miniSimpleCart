@@ -92,8 +92,8 @@ class MinicartController extends Controller
     {
         return $this->createFormBuilder()
                                    ->setAction($this->generateUrl('app_add_product', ['id' => $product->getId()]))
-                                   ->add('quantity', 'integer')
-                                   ->add('add', 'submit', ['label' => 'add'])
+                                   ->add('quantity', 'integer', ['attr' => ['min' => 0, 'max' => 99, 'value' => 0], 'label' => false])
+                                   ->add('add', 'submit', ['label' => 'Add to cart'])
                                    ->getForm()
         ;
     }

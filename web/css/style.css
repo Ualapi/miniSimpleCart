@@ -95,6 +95,14 @@
     border-radius: 4px;
 }
 
+input{
+    border: 1px solid #D4D4D4;
+    padding: 5px;
+    font-size: 14px;
+    color: #8f8f8f;
+    text-align: right;
+    outline: none;
+}
 h1,h2,h3,h4,h5,h6{
     font-weight: normal;
 }
