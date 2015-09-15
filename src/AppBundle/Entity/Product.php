@@ -129,29 +129,6 @@ class Product
     }
 
     /**
-     * Set status
-     *
-     * @param boolean $status
-     * @return Product
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return boolean 
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
      * Set image
      *
      * @param string $image
