@@ -10,6 +10,7 @@ class MinicartController extends Controller
 {
     public function indexAction()
     {
+        dump($this->get('session')->get('cart'));
         return $this->render(
             'AppBundle:app:index.html.twig',
             [
@@ -40,6 +41,11 @@ class MinicartController extends Controller
         }
 
         $this->get('session')->set('cart', $cart);
+
+        dump($this->get('session')->get('cart'));
+
+        $total = $this->getTotal($this->get('session')->get('cart'));
+        $this->get('session')->set('total', $total);
 
         return $this->render(
             'AppBundle:app:index.html.twig',
@@ -86,5 +92,16 @@ class MinicartController extends Controller
                                    ->add('add', 'submit', ['label' => 'Add to cart'])
                                    ->getForm()
         ;
+    }
+
+    private function getTotal(array $carts)
+    {
+        $total = 0;
+
+        foreach($carts as $item){
+            $total += $item['quantity'];
+        }
+
+        return $total;
     }
 }
