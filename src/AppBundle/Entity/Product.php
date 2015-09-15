@@ -129,29 +129,6 @@ class Product
     }
 
     /**
-     * Set stock
-     *
-     * @param integer $stock
-     * @return Product
-     */
-    public function setStock($stock)
-    {
-        $this->stock = $stock;
-
-        return $this;
-    }
-
-    /**
-     * Get stock
-     *
-     * @return integer 
-     */
-    public function getStock()
-    {
-        return $this->stock;
-    }
-
-    /**
      * Set status
      *
      * @param boolean $status

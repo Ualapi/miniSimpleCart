@@ -1,4 +1,4 @@
 products:
-    - ['PHP 7', 'what is PHP7', 5.95, 10, true, 'default.jpg']
-    - ['Symfony 2', 'Learn symfony2 ', 8.5, 10, true, 'default.jpg']
-    - ['Git and GitHub', 'GitHub is how people build software', 3.5, 10, true, 'default.jpg']
+    - ['PHP 7', 'what is PHP7', 5.95, true, 'default.jpg']
+    - ['Symfony 2', 'Learn symfony2 ', 8.5, true, 'default.jpg']
+    - ['Git and GitHub', 'GitHub is how people build software', 3.5, true, 'default.jpg']
