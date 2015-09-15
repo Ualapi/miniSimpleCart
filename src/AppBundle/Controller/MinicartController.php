@@ -60,16 +60,6 @@ class MinicartController extends Controller
 
     }
 
-    public function showAction(Product $product)
-    {
-        return $this->render(
-            'app/show.html.twig',
-            array(
-                'product' => $product
-            )
-        );
-    }
-
     private function getFormProducts($products)
     {
         $formProducts = [];
