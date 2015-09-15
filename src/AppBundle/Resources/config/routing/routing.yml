@@ -9,3 +9,7 @@ app_add_product:
 app_show_product:
     path:     /{id}/show-product
     defaults: { _controller: AppBundle:Minicart:show }
+
+app_empty_cart:
+    path:     /empty-cart
+    defaults: { _controller: AppBundle:Minicart:emptyCart }

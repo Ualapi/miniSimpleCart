@@ -39,6 +39,12 @@
                         <a href="" class="pure-button button-success btn-xs">
                             <i class="fa fa-shopping-cart"></i> <span id="totalShop">{{ app.session.get('total') }}</span>
                         </a>
+
+                        {% if app.session.get('total') %}
+                        <a href="{{ path('app_empty_cart') }}" class="pure-button button-success btn-xs">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

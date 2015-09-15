@@ -66,6 +66,13 @@ class MinicartController extends Controller
 
     }
 
+    public function emptyCartAction()
+    {
+        $this->get('session')->clear();
+
+        return $this->redirectToRoute('app_index');
+    }
+
     private function getFormProducts($products)
     {
         $formProducts = [];
