@@ -34,6 +34,7 @@ class MinicartController extends Controller
         if ($form->isValid()) {
             $cart[$product->getId()] =
                 [
+                    'id' => $product->getId(),
                     'name' => $product->getName(),
                     'price' => $product->getPrice(),
                     'quantity' => $form->get('quantity')->getData()
@@ -53,6 +54,7 @@ class MinicartController extends Controller
             [
                 'products' => $products = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll(),
                 'formProducts' => $this->getFormProductsViews($this->getFormProducts($products)),
+                'formProductsCart' => $this->getFormProductsViews($this->getFormProducts($this->get('session')->get('cart')))
             ]
         );
     }
