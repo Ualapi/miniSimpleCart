@@ -2,6 +2,7 @@
 
 {% block body %}
 
+    {% if formProductsCart is defined %}
     <div class="pure-g padding-horizontal-lg">
         <div class="pure-u-1">
             <section class="box-xs">
@@ -13,6 +14,8 @@
                                 {{ form_start(formProductsCart[key],{'action': path('app_update_product', {id: product.id}) }) }}
                                 {{ form_row(formProductsCart[key].quantity,{'attr': {'value': product.quantity}}) }}
                                 {{ form_errors(formProductsCart[key].quantity) }}
+
+                                {{ form_row(formProductsCart[key].id,{'attr': {'value': product.id}}) }}
                             </div>
                             <div class="pure-u-14-24">
                                 {{ product.name }}
@@ -28,6 +31,7 @@
             </section>
         </div>
     </div>
+    {% endif %}
 
     <div class="pure-g padding-horizontal-lg">
 

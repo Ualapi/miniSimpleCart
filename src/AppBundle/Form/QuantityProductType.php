@@ -11,7 +11,9 @@ class QuantityProductType extends AbstractType
     {
         $builder
             ->add('quantity', 'integer', ['attr' => ['min' => 0, 'max' => 99, 'value' => 0], 'label' => false])
-            ->add('id', 'hidden')
+            ->add('id', 'hidden', array(
+                'data' => '0'
+            ))
         ;
     }
 

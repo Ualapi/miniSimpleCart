@@ -11,7 +11,6 @@ class MinicartController extends Controller
 {
     public function indexAction()
     {
-        dump($this->get('session')->get('cart'));
         return $this->render(
             'AppBundle:app:index.html.twig',
             [
@@ -44,8 +43,6 @@ class MinicartController extends Controller
 
         $this->get('session')->set('cart', $cart);
 
-        dump($this->get('session')->get('cart'));
-
         $total = $this->getTotal($this->get('session')->get('cart'));
         $this->get('session')->set('total', $total);
 
@@ -66,7 +63,26 @@ class MinicartController extends Controller
 
     public function updateAction(Request $request)
     {
+        $quantityProduct = $request->request->get('app_bundle_quantity_product_type');
+        
+        $oldProductsCartSession = $this->get('session')->get('cart');
+        
+        foreach( $oldProductsCartSession as $key => $item ) {
 
+            $newProductsCartSession[$key] = $item;
+
+            if($key == $quantityProduct['id']){
+                $newProductsCartSession[$key] = [
+                    "id" => $key,
+                    "name" => $oldProductsCartSession[$key]['name'],
+                    "price" => $oldProductsCartSession[$key]['price'],
+                    "quantity" => $quantityProduct['quantity']
+                ];
+            }
+        }
+        
+        $this->get('session')->set('cart', $newProductsCartSession);
+        return $this->redirectToRoute('app_add_product',['id' => $quantityProduct['id']]);
     }
 
     public function emptyCartAction()
