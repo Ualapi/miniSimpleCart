@@ -10,6 +10,10 @@ app_show_product:
     path:     /{id}/show-product
     defaults: { _controller: AppBundle:Minicart:show }
 
+app_update_product:
+    path:     /{id}/update-product
+    defaults: { _controller: AppBundle:Minicart:update }
+
 app_empty_cart:
     path:     /empty-cart
     defaults: { _controller: AppBundle:Minicart:emptyCart }

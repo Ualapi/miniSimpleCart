@@ -64,7 +64,7 @@ class MinicartController extends Controller
 
     }
 
-    public function updateAction()
+    public function updateAction(Request $request)
     {
 
     }
