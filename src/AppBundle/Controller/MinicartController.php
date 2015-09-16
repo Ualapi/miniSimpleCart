@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Product;
+use AppBundle\Form\QuantityProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -26,7 +27,7 @@ class MinicartController extends Controller
 
         $product = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findOneBy(['id' => $id]);
 
-        $form = $this->getForm($product);
+        $form = $this->createForm(new QuantityProductType());
 
         $form->handleRequest($request);
 
@@ -77,7 +78,7 @@ class MinicartController extends Controller
     {
         $formProducts = [];
         foreach ($products  as $key => $product) {
-            $formProducts[$key] = $this->getForm($product);
+            $formProducts[$key] = $this->createForm(new QuantityProductType());
         }
         return $formProducts;
     }
@@ -89,16 +90,6 @@ class MinicartController extends Controller
             $formProductsViews[$key] = $form->createView();
         }
         return $formProductsViews;
-    }
-
-    private function getForm($product)
-    {
-        return $this->createFormBuilder()
-                                   ->setAction($this->generateUrl('app_add_product', ['id' => $product->getId()]))
-                                   ->add('quantity', 'integer', ['attr' => ['min' => 0, 'max' => 99, 'value' => 0], 'label' => false])
-                                   ->add('add', 'submit', ['label' => 'Add to cart'])
-                                   ->getForm()
-        ;
     }
 
     private function getTotal(array $carts)

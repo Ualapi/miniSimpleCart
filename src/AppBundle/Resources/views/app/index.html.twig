@@ -21,7 +21,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{ form_start(formProducts[key]) }}
+                        {{ form_start(formProducts[key],{'action': path('app_add_product', {id: product.id}) }) }}
                         <div class="features">
                             <div class="pure-g">
                                 <div class="pure-u-12-24">
@@ -41,7 +41,7 @@
                         <div class="features">
                             <div class="pure-g">
                                 <div class="pure-u-1">
-                                    {{ form_row(formProducts[key].add, {'attr':{'class': 'pure-button button-secondary btn-100'}}) }}
+                                    <input type="submit" value="Add to cart" class="pure-button button-secondary btn-100">
                                 </div>
                             </div>
                         </div>
