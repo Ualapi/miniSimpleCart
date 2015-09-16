@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Product;
 use AppBundle\Form\QuantityProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,7 +65,9 @@ class MinicartController extends Controller
         $quantityProduct = $request->request->get('app_bundle_quantity_product_type');
         
         $oldProductsCartSession = $this->get('session')->get('cart');
-        
+
+        $newProductsCartSession = array();
+
         foreach( $oldProductsCartSession as $key => $item ) {
 
             $newProductsCartSession[$key] = $item;
