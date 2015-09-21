@@ -1,0 +1,18 @@
+AppBundle\Entity\Product:
+  type: entity
+  table: product
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: 100
+      nullable: false
+    description:
+      type: text
+    price:
+      type: decimal
+      scale: 2

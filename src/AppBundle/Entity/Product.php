@@ -2,52 +2,31 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Product
- *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductRepository")
  */
 class Product
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100)
      */
     private $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="description", type="text")
      */
     private $description;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=125, nullable=true)
-     */
-    private $image;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="price", type="float", scale=2)
      */
     private $price;
+
 
     /**
      * Get id
@@ -108,7 +87,7 @@ class Product
     /**
      * Set price
      *
-     * @param integer $price
+     * @param string $price
      * @return Product
      */
     public function setPrice($price)
@@ -121,33 +100,10 @@ class Product
     /**
      * Get price
      *
-     * @return integer 
+     * @return string 
      */
     public function getPrice()
     {
         return $this->price;
-    }
-
-    /**
-     * Set image
-     *
-     * @param string $image
-     * @return Product
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string 
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 }
