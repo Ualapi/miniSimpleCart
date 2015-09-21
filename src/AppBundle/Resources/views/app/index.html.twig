@@ -1,20 +1,17 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    {% if formProductsCart is defined %}
+    {% if form is not empty %}
     <div class="pure-g padding-horizontal-lg">
         <div class="pure-u-1">
             <section class="box-xs">
                 <div class="box-object">
-                   <form>
+                    {{ form_start(form) }}
                     {% for key, product  in app.session.get('cart') %}
                         <div class="features-without-border pure-g">
                             <div class="pure-u-6-24">
-
-                                {{ form_row(formProductsCart[key].quantity,{'attr': {'value': product.quantity}}) }}
-                                {{ form_errors(formProductsCart[key].quantity) }}
-
-                                {{ form_row(formProductsCart[key].id,{'attr': {'value': product.id}}) }}
+                                {{ form_row(form[key]) }}
+                                {{ form_errors(form[key]) }}
                             </div>
                             <div class="pure-u-14-24">
                                 {{ product.name }}
@@ -29,7 +26,7 @@
                                <input type="submit" value="Update" class="pure-button button-success btn-xs">
                            </div>
                        </div>
-                    </form>
+                    {{ form_end(form) }}
                 </div>
             </section>
         </div>
