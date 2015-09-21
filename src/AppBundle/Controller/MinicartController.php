@@ -68,28 +68,22 @@ class MinicartController extends Controller
 
     public function updateAction(Request $request)
     {
-        $quantityProduct = $request->request->get('app_bundle_quantity_product_type');
-        
-        $oldProductsCartSession = $this->get('session')->get('cart');
+        $cart = $this->get('session')->get('cart');
 
-        $newProductsCartSession = array();
+        $arrayKeys = $request->request->all()['form'];
 
-        foreach( $oldProductsCartSession as $key => $item ) {
-
-            $newProductsCartSession[$key] = $item;
-
-            if($key == $quantityProduct['id']){
-                $newProductsCartSession[$key] = [
-                    "id" => $key,
-                    "name" => $oldProductsCartSession[$key]['name'],
-                    "price" => $oldProductsCartSession[$key]['price'],
-                    "quantity" => $quantityProduct['quantity']
-                ];
+        foreach( $arrayKeys as $key => $item ) {
+            if(is_integer($key)) {
+                $cart[$key]['quantity'] = $item;
             }
         }
         
-        $this->get('session')->set('cart', $newProductsCartSession);
-        return $this->redirectToRoute('app_add_product',['id' => $quantityProduct['id']]);
+        $this->get('session')->set('cart', $cart);
+
+        $total = $this->getTotal($this->get('session')->get('cart'));
+        $this->get('session')->set('total', $total);
+
+        return $this->redirectToRoute('app_index');
     }
 
     public function emptyCartAction()
