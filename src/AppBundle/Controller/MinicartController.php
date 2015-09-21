@@ -11,11 +11,20 @@ class MinicartController extends Controller
 {
     public function indexAction()
     {
+        $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
+
+        $builder = $this->createFormBuilder();
+        foreach ($cart as $item) {
+            $builder->add($item['quantity'], 'integer', ['attr' => ['min' => 1, 'max' => 99, 'value' => $item['quantity']], 'label' => false, 'mapped' => false]);
+        }
+        $form = $builder->getForm();
+
         return $this->render(
             'AppBundle:app:index.html.twig',
             [
                 'products' => $products = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll(),
                 'formProducts' => $this->getFormProductsViews($this->getFormProducts($products)),
+                'formSession' => $form->createView(),
                 'formProductsCart' =>
                     empty(!$this->get('session')->get('cart')) ? $this->getFormProductsViews($this->getFormProducts($this->get('session')->get('cart'))) : null
             ]
