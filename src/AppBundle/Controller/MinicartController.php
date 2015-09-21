@@ -16,15 +16,7 @@ class MinicartController extends Controller
 
         $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
 
-        $this->createFormCart($cart);
-
-        $builder = $this->createFormBuilder();
-/*
-        foreach ($cart as $key => $item) {
-            $builder->add($key, 'integer', ['attr' => ['min' => 1, 'max' => 99, 'value' => $item['quantity'] ], 'label' => false, 'mapped' => false]);
-        }
-*/
-        $form = $builder->getForm();
+        $this->getFormCartProducts($cart);
 
         return $this->render(
             'AppBundle:app:index.html.twig',
@@ -135,10 +127,12 @@ class MinicartController extends Controller
         return $total;
     }
 
-    private function createFormCart($cart)
+    private function getFormCartProducts($cart)
     {
-        foreach ($cart as $productsItems) {
-
+        $formCartProducts = [];
+        foreach ($cart as $productId => $productsItems) {
+            $formCartProducts[$productId] = $this->createForm(new ProductType($productsItems['quantity']), $productsItems['product']);
         }
+        return $formCartProducts;
     }
 }
