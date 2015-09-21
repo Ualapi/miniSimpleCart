@@ -33,13 +33,12 @@ class MinicartController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $cart[$product->getId()] =
                 [
                     'id' => $product->getId(),
                     'name' => $product->getName(),
                     'price' => $product->getPrice(),
-                    'quantity' => $form->getData()['quantity']
+                    'quantity' => $form->get('quantity')->getData()
                 ]
             ;
         }
