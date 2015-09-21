@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\ProductType;
 use AppBundle\Form\QuantityProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -97,7 +98,7 @@ class MinicartController extends Controller
     {
         $formProducts = [];
         foreach ($products  as $key => $product) {
-            $formProducts[$key] = $this->createForm(new QuantityProductType());
+            $formProducts[$key] = $this->createForm(new ProductType(), $product);
         }
 
         return $formProducts;
