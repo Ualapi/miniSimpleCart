@@ -12,7 +12,7 @@ app_show_product:
 
 app_update_product:
     path:     /update-product
-    defaults: { _controller: AppBundle:Minicart:update }
+    defaults: { _controller: AppBundle:Minicart:updatequantitycart }
 
 app_empty_cart:
     path:     /empty-cart

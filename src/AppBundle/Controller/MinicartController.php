@@ -2,11 +2,9 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\FormCartSessionType;
-use AppBundle\Form\QuantityProductType;
+use AppBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Product;
 
 class MinicartController extends Controller
 {
@@ -14,78 +12,50 @@ class MinicartController extends Controller
     {
         $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
 
-        if(!empty($cart)) {
-            $form = $this->createForm(new FormCartSessionType(), $cart);
-        }
-
         return $this->render(
             'AppBundle:app:index.html.twig',
             [
-                'products' => $products = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll(),
-                'formProducts' => $this->getFormProductsViews($this->getFormProducts($products)),
-                'form' =>
-                    empty(!$cart) ? $form->createView() : null
+                'formsCart' => $this->getFormCart($cart)->createView(),
+                'formProducts' => $this->getFormProductsViews($this->getFormProducts($this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll())),
             ]
         );
     }
 
     public function addAction(Request $request, $id)
     {
-        $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
-        /** @var Product $product */
-        $product = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findOneBy(['id' => $id]);
+        $product = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->find($id);
 
-        $form = $this->createForm(new QuantityProductType());
+        $form = $this->createForm(new ProductType(), $product);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $cart[$product->getId()] =
-                [
-                    'id' => $product->getId(),
-                    'name' => $product->getName(),
-                    'price' => $product->getPrice(),
-                    'quantity' => $form->get('quantity')->getData()
-                ]
-            ;
+        if ($form->isValid()) {
+            $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
+            $cart[$product->getId()] = ['product' => $product, 'quantity' => $form->get('quantity')->getData()];
+            $this->get('session')->set('cart', $cart);
         }
-
-        $this->get('session')->set('cart', $cart);
-
-        $total = $this->getTotal($this->get('session')->get('cart'));
-        $this->get('session')->set('total', $total);
-
         return $this->redirectToRoute('app_index');
     }
 
     public function checkoutAction()
     {
-
+        // todo your checkout method
     }
 
-    public function updateAction(Request $request)
+    public function updatequantitycartAction(Request $request)
     {
         $cart = $this->get('session')->get('cart');
 
-        foreach( $request->request->all()['app_bundle_form_cart_session_type'] as $key => $item ) {
+        $formCart = $this->getFormCart($cart);
 
-            if(is_integer($key)) {
-                $cart[$key]['quantity'] = $item;
+        $formCart->handleRequest($request);
+
+        if ($formCart->isValid()) {
+            foreach ($formCart->getData() as $productId => $product) {
+                $cart [$productId]['quantity'] = $formCart->get($productId)->get('quantity')->getData();
             }
-        }
-
-        $form = $this->createForm(new FormCartSessionType(), $cart);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
             $this->get('session')->set('cart', $cart);
-
-            $total = $this->getTotal($this->get('session')->get('cart'));
-            $this->get('session')->set('total', $total);
         }
-
         return $this->redirectToRoute('app_index');
     }
 
@@ -100,7 +70,7 @@ class MinicartController extends Controller
     {
         $formProducts = [];
         foreach ($products  as $key => $product) {
-            $formProducts[$key] = $this->createForm(new QuantityProductType());
+            $formProducts[$key] = $this->createForm(new ProductType(), $product);
         }
 
         return $formProducts;
@@ -115,14 +85,14 @@ class MinicartController extends Controller
         return $formProductsViews;
     }
 
-    private function getTotal(array $carts)
+    private function getFormCart($cart)
     {
-        $total = 0;
+        $builder = $this->createFormBuilder();
 
-        foreach($carts as $item){
-            $total += $item['quantity'];
+        foreach ($cart as $productId => $cartProduct) {
+            $builder->add($productId, new ProductType($cartProduct['quantity']), ['data' => $cartProduct['product']]);
         }
 
-        return $total;
+        return $builder->getForm();
     }
 }
