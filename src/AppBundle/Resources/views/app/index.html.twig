@@ -18,15 +18,19 @@
                     <form action="{{ path('app_update_product') }}" method="post">
                         {% for key, form  in formsCart if key != '_token' %}
                             {% set product = form.vars.value %}
+                            {% set quantity = form.quantity.vars.attr.value %}
                             <div class="features-without-border pure-g">
                                 <div class="pure-u-6-24">
                                     {{ product.name }}
                                 </div>
-                                <div class="pure-u-14-24">
+                                <div class="pure-u-10-24">
                                     {{ form_widget(form.quantity) }}
                                 </div>
                                 <div class="pure-u-4-24 text-right">
-                                    {{ product.price }}  &euro;
+                                    {{ product.price }} / item &euro;
+                                </div>
+                                <div class="pure-u-4-24 text-right">
+                                    {{ product.price * quantity }} &euro;
                                 </div>
                             </div>
                         {% endfor %}
