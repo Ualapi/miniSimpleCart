@@ -1,6 +1,8 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
+    {{dump(cart)}}
+{#
     {% if form is not empty %}
     <div class="pure-g padding-horizontal-lg">
         <div class="pure-u-1">
@@ -41,6 +43,7 @@
     </div>
     {% endif %}
 
+#}
     <div class="pure-g padding-horizontal-lg">
 
         {% for key, product in products %}
