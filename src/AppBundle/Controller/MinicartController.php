@@ -10,19 +10,13 @@ class MinicartController extends Controller
 {
     public function indexAction()
     {
+        $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
+
         return $this->render(
             'AppBundle:app:index.html.twig',
             [
-                'formsCart' => $this->getFormProductsViews(
-                    $this->getFormCartProducts(
-                        $this->get('session')->has('cart') ? $this->get('session')->get('cart') : []
-                    )
-                ),
-                'formProducts' => $this->getFormProductsViews(
-                    $this->getFormProducts(
-                        $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll()
-                    )
-                ),
+                'formsCart' => $this->getFormCart($cart)->createView(),
+                'formProducts' => $this->getFormProductsViews($this->getFormProducts($this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll())),
             ]
         );
     }
@@ -37,11 +31,7 @@ class MinicartController extends Controller
 
         if ($form->isValid()) {
             $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
-            $cart[$product->getId()] =
-                [
-                    'product' => $product,
-                    'quantity' => $form->get('quantity')->getData()
-                ]
+            $cart[$product->getId()] = ['product' => $product, 'quantity' => $form->get('quantity')->getData()]
             ;
             $this->get('session')->set('cart', $cart);
         }
@@ -116,12 +106,15 @@ class MinicartController extends Controller
         return $total;
     }
 
-    private function getFormCartProducts($cart)
+    private function getFormCart($cart)
     {
-        $formCartProducts = [];
-        foreach ($cart as $productId => $productsItems) {
-            $formCartProducts[$productId] = $this->createForm(new ProductType($productsItems['quantity']), $productsItems['product']);
+        $builder = $this->createFormBuilder();
+
+        foreach ($cart as $productId => $cartProduct) {
+            $builder
+                ->add($productId, new ProductType($cartProduct['quantity']), ['data' => $cartProduct['product']]);
         }
-        return $formCartProducts;
+
+        return $builder->getForm();
     }
 }
