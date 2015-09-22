@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\FormCartSessionType;
 use AppBundle\Form\QuantityProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,21 +14,17 @@ class MinicartController extends Controller
     {
         $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
 
-        $builder = $this->createFormBuilder();
-
-        foreach ($cart as $key => $item) {
-            $builder->add($key, 'integer', ['attr' => ['min' => 1, 'max' => 99, 'value' => $item['quantity'] ], 'label' => false, 'mapped' => false]);
+        if(!empty($cart)) {
+            $form = $this->createForm(new FormCartSessionType(), $cart);
         }
-        $form = $builder->getForm();
 
         return $this->render(
             'AppBundle:app:index.html.twig',
             [
                 'products' => $products = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll(),
                 'formProducts' => $this->getFormProductsViews($this->getFormProducts($products)),
-                'form' => $form->createView(),
-                'formProductsCart' =>
-                    empty(!$this->get('session')->get('cart')) ? $this->getFormProductsViews($this->getFormProducts($this->get('session')->get('cart'))) : null
+                'form' =>
+                    empty(!$cart) ? $form->createView() : null
             ]
         );
     }
@@ -70,18 +67,24 @@ class MinicartController extends Controller
     {
         $cart = $this->get('session')->get('cart');
 
-        $arrayKeys = $request->request->all()['form'];
+        foreach( $request->request->all()['app_bundle_form_cart_session_type'] as $key => $item ) {
 
-        foreach( $arrayKeys as $key => $item ) {
             if(is_integer($key)) {
                 $cart[$key]['quantity'] = $item;
             }
         }
-        
-        $this->get('session')->set('cart', $cart);
 
-        $total = $this->getTotal($this->get('session')->get('cart'));
-        $this->get('session')->set('total', $total);
+        $form = $this->createForm(new FormCartSessionType(), $cart);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->get('session')->set('cart', $cart);
+
+            $total = $this->getTotal($this->get('session')->get('cart'));
+            $this->get('session')->set('total', $total);
+        }
 
         return $this->redirectToRoute('app_index');
     }
