@@ -5,11 +5,7 @@
         <div class="pure-u-1">
             <section class="box-xs">
                 <div class="box-object">
-<<<<<<< HEAD
-                    {% set totalToPay = 0 %}
-=======
                     {#
->>>>>>> cart view
                     {{ form_start(form,{'action': path('app_update_product') }) }}
                     #}
                     {% for key, form  in formsCart %}
@@ -21,23 +17,37 @@
                                 {{ form.vars.value.name }}
                             </div>
                             <div class="pure-u-4-24 text-right">
-<<<<<<< HEAD
-                                {{ product.price }} € /item.
-=======
                                 {{ form.vars.value.price }} €
->>>>>>> cart view
                             </div>
                         </div>
                         {% set totalToPay = totalToPay + (product.price * form[key].vars.attr.value) %}
                     {% endfor %}
-<<<<<<< HEAD
-=======
                        <div class="features-without-border pure-g">
                            <div class="pure-u-24-24 text-right">
                                <input type="submit" value="Update" class="pure-button button-success btn-xs">
                            </div>
                        </div>
->>>>>>> cart view
+                    <form action="path('app_update_product')" method="post">
+                        {% for key, form  in formsCart %}
+                            <div class="features-without-border pure-g">
+                                <div class="pure-u-6-24">
+                                    {{ form(form) }}
+                                </div>
+                                <div class="pure-u-14-24">
+                                    {{ form.vars.value.name }}
+                                </div>
+                                <div class="pure-u-4-24 text-right">
+                                    {{ form.vars.value.price }} €
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="features-without-border pure-g">
+                            <div class="pure-u-24-24 text-right">
+                                <input type="submit" value="Update" class="pure-button button-success btn-xs">
+                            </div>
+                        </div>
+                    </form>
+>>>>>>> enable update
                 </div>
                     <div class="features-without-border pure-g">
                         <div class="pure-u-24-24 text-right">

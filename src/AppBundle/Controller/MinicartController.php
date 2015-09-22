@@ -12,7 +12,6 @@ class MinicartController extends Controller
 {
     public function indexAction()
     {
-
         $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
 
         return $this->render(
@@ -22,8 +21,6 @@ class MinicartController extends Controller
                 'products' => $products = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll(),
                 'formProducts' => $this->getFormProductsViews($this->getFormProducts($products)),
                 'formsCart' => $this->getFormProductsViews($this->getFormCartProducts($cart)),
-                'formProductsCart' => null
-//                    empty(!$this->get('session')->get('cart')) ? $this->getFormProductsViews($this->getFormProducts($this->get('session')->get('cart'))) : null
             ]
         );
     }
