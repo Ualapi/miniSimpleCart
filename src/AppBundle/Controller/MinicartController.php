@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\FormCartSessionType;
 use AppBundle\Form\QuantityProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +15,9 @@ class MinicartController extends Controller
         $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
 
         if(!empty($cart)) {
-            $builder = $this->createFormBuilder();
-
-            foreach ($cart as $key => $item) {
-                $builder->add($key, 'integer', ['attr' => ['min' => 1, 'max' => 99, 'value' => $item['quantity'] ], 'label' => false, 'mapped' => false]);
-            }
-            $form = $builder->getForm();
+            $form = $this->createForm(new FormCartSessionType(), $cart);
         }
-        
+
         return $this->render(
             'AppBundle:app:index.html.twig',
             [
