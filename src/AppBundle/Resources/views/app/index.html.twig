@@ -5,7 +5,7 @@
         <div class="pure-u-1">
             <section class="box-xs">
                 <div class="box-object">
-                    <form action="path('app_update_product')" method="post">
+                    <form action="{{ path('app_update_product') }}" method="post">
                         {% for key, form  in formsCart if key != '_token' %}
                             {% set product = form.vars.value %}
                             <div class="features-without-border pure-g">
