@@ -67,18 +67,24 @@ class MinicartController extends Controller
     {
         $cart = $this->get('session')->get('cart');
 
-        $arrayKeys = $request->request->all()['form'];
+        foreach( $request->request->all()['app_bundle_form_cart_session_type'] as $key => $item ) {
 
-        foreach( $arrayKeys as $key => $item ) {
             if(is_integer($key)) {
                 $cart[$key]['quantity'] = $item;
             }
         }
-        
-        $this->get('session')->set('cart', $cart);
 
-        $total = $this->getTotal($this->get('session')->get('cart'));
-        $this->get('session')->set('total', $total);
+        $form = $this->createForm(new FormCartSessionType(), $cart);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->get('session')->set('cart', $cart);
+
+            $total = $this->getTotal($this->get('session')->get('cart'));
+            $this->get('session')->set('total', $total);
+        }
 
         return $this->redirectToRoute('app_index');
     }
