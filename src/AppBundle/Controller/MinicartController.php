@@ -32,8 +32,7 @@ class MinicartController extends Controller
 
         if ($form->isValid()) {
             $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
-            $cart[$product->getId()] = ['product' => $product, 'quantity' => $form->get('quantity')->getData()]
-            ;
+            $cart[$product->getId()] = ['product' => $product, 'quantity' => $form->get('quantity')->getData()];
             $this->get('session')->set('cart', $cart);
         }
 
@@ -118,8 +117,7 @@ class MinicartController extends Controller
         $builder = $this->createFormBuilder();
 
         foreach ($cart as $productId => $cartProduct) {
-            $builder
-                ->add($productId, new ProductType($cartProduct['quantity']), ['data' => $cartProduct['product']]);
+            $builder->add($productId, new ProductType($cartProduct['quantity']), ['data' => $cartProduct['product']]);
         }
 
         return $builder->getForm();
