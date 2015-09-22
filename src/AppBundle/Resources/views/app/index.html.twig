@@ -11,48 +11,52 @@
 {% endblock %}
 
 {% block body %}
-    <div class="pure-g padding-horizontal-lg">
-        <div class="pure-u-1">
-            <section class="box-xs">
-                <div class="box-object">
-                    {% set total = 0 %}
-                    <form action="{{ path('app_update_product') }}" method="post">
-                        {% for key, form  in formsCart if key != '_token' %}
-                            {% set product = form.vars.value %}
-                            {% set quantity = form.quantity.vars.attr.value %}
-                            {% set subtotal = product.price * quantity %}
-                            {% set total = subtotal + total  %}
-                            <div class="features-without-border pure-g">
-                                <div class="pure-u-6-24">
-                                    {{ product.name }}
+
+    {% if formsCart|length -1 != 0 %}
+        <div class="pure-g padding-horizontal-lg">
+            <div class="pure-u-1">
+                <section class="box-xs">
+                    <div class="box-object">
+                        {% set total = 0 %}
+                        <form action="{{ path('app_update_product') }}" method="post">
+                            {% for key, form  in formsCart if key != '_token' %}
+                                {% set product = form.vars.value %}
+                                {% set quantity = form.quantity.vars.attr.value %}
+                                {% set subtotal = product.price * quantity %}
+                                {% set total = subtotal + total  %}
+                                <div class="features-without-border pure-g">
+                                    <div class="pure-u-6-24">
+                                        {{ product.name }}
+                                    </div>
+                                    <div class="pure-u-10-24">
+                                        {{ form_widget(form.quantity) }}
+                                    </div>
+                                    <div class="pure-u-4-24 text-right">
+                                        {{ product.price|number_format(2) }} / item &euro;
+                                    </div>
+                                    <div class="pure-u-4-24 text-right">
+                                        {{ subtotal|number_format(2) }} &euro;
+                                    </div>
                                 </div>
-                                <div class="pure-u-10-24">
-                                    {{ form_widget(form.quantity) }}
+                            {% endfor %}
+                    </div>
+                            {{ form_rest(formsCart) }}
+                            {% if formsCart|length - 1 > 0 %}
+                                <div class="features-without-border pure-g">
+                                    <div class="features-without-border pure-u-24-24 text-right">
+                                        <b>Total: {{ total|number_format(2)  }} &euro;</b>
+                                    </div>
+                                    <div class="pure-u-24-24 text-right">
+                                        <input type="submit" value="Update to Cart" class="pure-button button-success btn-xs">
+                                    </div>
                                 </div>
-                                <div class="pure-u-4-24 text-right">
-                                    {{ product.price|number_format(2) }} / item &euro;
-                                </div>
-                                <div class="pure-u-4-24 text-right">
-                                    {{ subtotal|number_format(2) }} &euro;
-                                </div>
-                            </div>
-                        {% endfor %}
-                        {{ form_rest(formsCart) }}
-                        {% if formsCart|length - 1 > 0 %}
-                            <div class="features-without-border pure-g">
-                                <div class="features-without-border pure-u-24-24 text-right">
-                                    Total: {{ total|number_format(2)  }} &euro;
-                                </div>
-                                <div class="pure-u-24-24 text-right">
-                                    <input type="submit" value="Update" class="pure-button button-success btn-xs">
-                                </div>
-                            </div>
-                        {% endif %}
-                    </form>
-                </div>
-            </section>
+                            {% endif %}
+                        </form>
+                </section>
+            </div>
         </div>
-    </div>
+    {% endif %}
+
     <div class="pure-g padding-horizontal-lg">
         {% for key, form in formProducts %}
             {% set product = form.vars.value %}
@@ -77,7 +81,7 @@
                             <div class="pure-g">
                                 <div class="pure-u-12-24">
                                     <div class="price">
-                                        {{ product.price|number_format(2, '.') }} USD
+                                        {{ product.price|number_format(2, '.') }} &euro;
                                     </div>
                                 </div>
                                 <div class="pure-u-12-24">
