@@ -27,19 +27,21 @@
                                     {{ form_widget(form.quantity) }}
                                 </div>
                                 <div class="pure-u-4-24 text-right">
-                                    {{ product.price }} / item &euro;
+                                    {{ product.price|number_format(2) }} / item &euro;
                                 </div>
                                 <div class="pure-u-4-24 text-right">
-                                    {{ product.price * quantity }} &euro;
+                                    {{ (product.price * quantity)|number_format(2) }} &euro;
                                 </div>
                             </div>
                         {% endfor %}
                         {{ form_rest(formsCart) }}
-                        <div class="features-without-border pure-g">
-                            <div class="pure-u-24-24 text-right">
-                                <input type="submit" value="Update" class="pure-button button-success btn-xs">
+                        {% if formsCart|length - 1 > 0 %}
+                            <div class="features-without-border pure-g">
+                                <div class="pure-u-24-24 text-right">
+                                    <input type="submit" value="Update" class="pure-button button-success btn-xs">
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     </form>
                 </div>
             </section>
