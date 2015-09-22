@@ -5,29 +5,7 @@
         <div class="pure-u-1">
             <section class="box-xs">
                 <div class="box-object">
-                    {#
-                    {{ form_start(form,{'action': path('app_update_product') }) }}
-                    #}
-                    {% for key, form  in formsCart %}
-                        <div class="features-without-border pure-g">
-                            <div class="pure-u-6-24">
-                                {{ form(form) }}
-                            </div>
-                            <div class="pure-u-14-24">
-                                {{ form.vars.value.name }}
-                            </div>
-                            <div class="pure-u-4-24 text-right">
-                                {{ form.vars.value.price }} €
-                            </div>
-                        </div>
-                        {% set totalToPay = totalToPay + (product.price * form[key].vars.attr.value) %}
-                    {% endfor %}
-                       <div class="features-without-border pure-g">
-                           <div class="pure-u-24-24 text-right">
-                               <input type="submit" value="Update" class="pure-button button-success btn-xs">
-                           </div>
-                       </div>
-                    <form action="path('app_update_product')" method="post">
+                    <form action="{{ path('app_update_product') }}" method="post">
                         {% for key, form  in formsCart if key != '_token' %}
                             {% set product = form.vars.value %}
                             <div class="features-without-border pure-g">
@@ -49,7 +27,6 @@
                             </div>
                         </div>
                     </form>
->>>>>>> enable update
                 </div>
                     <div class="features-without-border pure-g">
                         <div class="pure-u-24-24 text-right">

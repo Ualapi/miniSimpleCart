@@ -35,43 +35,28 @@ class MinicartController extends Controller
             $cart[$product->getId()] = ['product' => $product, 'quantity' => $form->get('quantity')->getData()];
             $this->get('session')->set('cart', $cart);
         }
-
-/*
-        $total = $this->getTotal($this->get('session')->get('cart'));
-
-        $this->get('session')->set('total', $total);
-*/
         return $this->redirectToRoute('app_index');
     }
 
     public function checkoutAction()
     {
-
+        // todo your checkout method
     }
 
-    public function updateAction(Request $request)
+    public function updatequantitycartAction(Request $request)
     {
         $cart = $this->get('session')->get('cart');
 
-        foreach( $request->request->all()['app_bundle_form_cart_session_type'] as $key => $item ) {
+        $formCart = $this->getFormCart($cart);
 
-            if(is_integer($key)) {
-                $cart[$key]['quantity'] = $item;
+        $formCart->handleRequest($request);
+
+        if ($formCart->isValid()) {
+            foreach ($formCart->getData() as $productId => $product) {
+                $cart [$productId]['quantity'] = $formCart->get($productId)->get('quantity')->getData();
             }
-        }
-
-        $form = $this->createForm(new FormCartSessionType(), $cart);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
             $this->get('session')->set('cart', $cart);
-
-            $total = $this->getTotal($this->get('session')->get('cart'));
-            $this->get('session')->set('total', $total);
         }
-
         return $this->redirectToRoute('app_index');
     }
 
@@ -99,17 +84,6 @@ class MinicartController extends Controller
             $formProductsViews[$key] = $form->createView();
         }
         return $formProductsViews;
-    }
-
-    private function getTotal(array $carts)
-    {
-        $total = 0;
-
-        foreach($carts as $item){
-            $total += $item['quantity'];
-        }
-
-        return $total;
     }
 
     private function getFormCart($cart)

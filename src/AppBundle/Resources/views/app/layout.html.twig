@@ -37,7 +37,9 @@
                 <div class="pure-u-2-5 text-right">
                     <div class="btn-lg">
                         <a href="" class="pure-button button-success btn-xs">
-                            <i class="fa fa-shopping-cart"></i> <span id="totalShop">{{ app.session.get('total') }}</span>
+                            <i class="fa fa-shopping-cart"></i> <span id="totalShop">
+                                {# {{ app.session.get('total') }} #}
+                            </span>
                         </a>
 
                         {% if app.session.get('total') %}
