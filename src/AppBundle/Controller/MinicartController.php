@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Form\ProductType;
-use AppBundle\Form\QuantityProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Product;
@@ -16,15 +15,13 @@ class MinicartController extends Controller
 
         $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
 
-        $this->getFormCartProducts($cart);
-
         return $this->render(
             'AppBundle:app:index.html.twig',
             [
                 'cart' => $cart,
                 'products' => $products = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll(),
                 'formProducts' => $this->getFormProductsViews($this->getFormProducts($products)),
-                'form' => $form->createView(),
+                'formsCart' => $this->getFormProductsViews($this->getFormCartProducts($cart)),
                 'formProductsCart' => null
 //                    empty(!$this->get('session')->get('cart')) ? $this->getFormProductsViews($this->getFormProducts($this->get('session')->get('cart'))) : null
             ]
