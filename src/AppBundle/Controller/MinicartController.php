@@ -11,23 +11,22 @@ class MinicartController extends Controller
 {
     public function indexAction()
     {
-        $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
-
         return $this->render(
             'AppBundle:app:index.html.twig',
             [
-                'cart' => $cart,
+                'formsCart' => $this->getFormProductsViews(
+                    $this->getFormCartProducts(
+                        $this->get('session')->has('cart') ? $this->get('session')->get('cart') : []
+                    )
+                ),
                 'products' => $products = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll(),
                 'formProducts' => $this->getFormProductsViews($this->getFormProducts($products)),
-                'formsCart' => $this->getFormProductsViews($this->getFormCartProducts($cart)),
             ]
         );
     }
 
     public function addAction(Request $request, $id)
     {
-        $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
-        /** @var Product $product */
         $product = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->find($id);
 
         $form = $this->createForm(new ProductType(), $product);
@@ -35,15 +34,16 @@ class MinicartController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
             $cart[$product->getId()] =
                 [
                     'product' => $product,
                     'quantity' => $form->get('quantity')->getData()
                 ]
             ;
+            $this->get('session')->set('cart', $cart);
         }
 
-        $this->get('session')->set('cart', $cart);
 /*
         $total = $this->getTotal($this->get('session')->get('cart'));
 
