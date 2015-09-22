@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Product;
 
 class MinicartController extends Controller
 {
@@ -19,8 +18,11 @@ class MinicartController extends Controller
                         $this->get('session')->has('cart') ? $this->get('session')->get('cart') : []
                     )
                 ),
-                'products' => $products = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll(),
-                'formProducts' => $this->getFormProductsViews($this->getFormProducts($products)),
+                'formProducts' => $this->getFormProductsViews(
+                    $this->getFormProducts(
+                        $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->findAll()
+                    )
+                ),
             ]
         );
     }
