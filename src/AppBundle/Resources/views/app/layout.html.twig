@@ -35,18 +35,14 @@
                 </div>
 
                 <div class="pure-u-2-5 text-right">
-                    <div class="btn-lg">
+                    <div class="btn-lg ">
                         <a href="" class="pure-button button-success btn-xs">
-                            <i class="fa fa-shopping-cart"></i> <span id="totalShop">
-                                {# {{ app.session.get('total') }} #}
+                            <i class="fa fa-shopping-cart"></i>
+                            <span id="totalShop">
+                                {% block countItems %} {% endblock %}
                             </span>
                         </a>
-
-                        {% if app.session.get('total') %}
-                        <a href="{{ path('app_empty_cart') }}" class="pure-button button-success btn-xs">
-                            <i class="fa fa-trash-o"></i>
-                        </a>
-                        {% endif %}
+                        {% block trashbutton %} {% endblock %}
                     </div>
                 </div>
             </div>
