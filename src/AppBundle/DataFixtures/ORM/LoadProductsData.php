@@ -21,7 +21,6 @@ class LoadProductsData implements FixtureInterface
             $product->setName($item[0]);
             $product->setDescription($item[1]);
             $product->setPrice($item[2]);
-            $product->setImage($item[3]);
 
             $manager->persist($product);
         }
