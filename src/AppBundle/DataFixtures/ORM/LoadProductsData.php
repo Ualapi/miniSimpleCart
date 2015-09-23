@@ -4,7 +4,7 @@ namespace AppBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Product;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Parser;
 
 class LoadProductsData implements FixtureInterface
 {
@@ -13,7 +13,8 @@ class LoadProductsData implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $products = Yaml::parse(__DIR__.'/../products.yml');
+        $parser = new Parser();
+        $products = $parser->parse(file_get_contents(__DIR__.'/../products.yml'));
 
         foreach($products['products'] as $item){
 
