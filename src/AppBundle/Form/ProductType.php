@@ -21,7 +21,7 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('quantity', 'integer', ['attr' => ['min' => 1, 'max' => 99, 'value' => $this->quantity ], 'label' => false, 'mapped' => false])
+            ->add('quantity', 'integer', ['attr' => ['min' => 0, 'max' => 99, 'value' => $this->quantity ], 'label' => false, 'mapped' => false])
         ;
     }
     

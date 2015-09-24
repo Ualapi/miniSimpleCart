@@ -31,7 +31,9 @@ class MinicartController extends Controller
 
         if ($form->isValid()) {
             $cart = $this->get('session')->has('cart') ? $this->get('session')->get('cart') : [];
-            $cart[$product->getId()] = ['product' => $product, 'quantity' => $form->get('quantity')->getData()];
+            if($form->get('quantity')->getData() != 0){
+                $cart[$product->getId()] = ['product' => $product, 'quantity' => $form->get('quantity')->getData()];
+            }
             $this->get('session')->set('cart', $cart);
         }
         return $this->redirectToRoute('app_index');
@@ -52,10 +54,16 @@ class MinicartController extends Controller
 
         if ($formCart->isValid()) {
             foreach ($formCart->getData() as $productId => $product) {
-                $cart [$productId]['quantity'] = $formCart->get($productId)->get('quantity')->getData();
+                if($formCart->get($productId)->get('quantity')->getData() == 0) {
+                    unset($cart[$productId]);
+                }
+                else{
+                    $cart [$productId]['quantity'] = $formCart->get($productId)->get('quantity')->getData();
+                }
             }
             $this->get('session')->set('cart', $cart);
         }
+
         return $this->redirectToRoute('app_index');
     }
 
