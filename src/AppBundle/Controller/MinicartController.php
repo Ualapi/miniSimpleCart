@@ -61,7 +61,7 @@ class MinicartController extends Controller
 
     public function emptyCartAction()
     {
-        $this->get('session')->clear();
+        $this->get('session')->remove('cart');
 
         return $this->redirectToRoute('app_index');
     }
